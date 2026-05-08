@@ -1,0 +1,1406 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AMS – MGH Housestaff Quick Reference</title>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg: #0a0a0f;
+  --surface: #12121a;
+  --surface2: #1a1a26;
+  --border: rgba(255,255,255,0.08);
+  --border2: rgba(255,255,255,0.15);
+  --text: #f0f0f8;
+  --muted: #888899;
+  --accent: #7c6bff;
+}
+
+* { margin:0; padding:0; box-sizing:border-box; }
+
+body {
+  font-family: 'Space Grotesk', sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  min-height: 100vh;
+  overflow-x: hidden;
+}
+
+/* ── Header ── */
+#app-header {
+  position: fixed; top:0; left:0; right:0; z-index:100;
+  background: rgba(10,10,15,0.9);
+  backdrop-filter: blur(12px);
+  border-bottom: 1px solid var(--border);
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 0 2rem; height: 56px;
+}
+
+.logo {
+  font-size: 22px; font-weight: 700; letter-spacing: -0.5px;
+  background: linear-gradient(135deg, #7c6bff, #e96bff);
+  -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+}
+
+.logo-sub { font-size: 11px; color: var(--muted); font-weight: 400; margin-top: 2px; letter-spacing: 0.5px; }
+
+.search-wrap {
+  flex: 1; max-width: 420px; margin: 0 2rem;
+  position: relative;
+}
+
+#global-search {
+  width: 100%;
+  background: var(--surface);
+  border: 1px solid var(--border2);
+  border-radius: 24px;
+  padding: 8px 16px 8px 40px;
+  color: var(--text);
+  font-family: inherit;
+  font-size: 14px;
+  outline: none;
+  transition: border-color 0.2s;
+}
+#global-search:focus { border-color: var(--accent); }
+#global-search::placeholder { color: var(--muted); }
+
+.search-icon {
+  position: absolute; left: 14px; top: 50%; transform: translateY(-50%);
+  color: var(--muted); font-size: 15px;
+}
+
+.header-pill {
+  font-size: 11px; background: rgba(124,107,255,0.15); border: 1px solid rgba(124,107,255,0.3);
+  color: #a89fff; border-radius: 20px; padding: 4px 12px; white-space: nowrap;
+}
+
+/* ── Sidebar ── */
+#sidebar {
+  position: fixed; top: 56px; left: 0; bottom: 0; width: 220px; z-index: 90;
+  background: var(--surface);
+  border-right: 1px solid var(--border);
+  overflow-y: auto;
+  padding: 1rem 0;
+}
+
+#sidebar::-webkit-scrollbar { width: 4px; }
+#sidebar::-webkit-scrollbar-thumb { background: var(--border2); border-radius: 2px; }
+
+.sys-btn {
+  display: flex; align-items: center; gap: 10px;
+  width: 100%; border: none; background: none; cursor: pointer;
+  padding: 9px 16px;
+  color: var(--muted);
+  font-family: inherit; font-size: 13px; font-weight: 500;
+  text-align: left;
+  transition: all 0.15s;
+  border-radius: 0;
+  position: relative;
+}
+.sys-btn:hover { color: var(--text); background: rgba(255,255,255,0.04); }
+.sys-btn.active {
+  color: var(--text);
+  background: rgba(124,107,255,0.12);
+}
+.sys-btn.active::before {
+  content: '';
+  position: absolute; left: 0; top: 0; bottom: 0; width: 3px;
+  background: var(--sys-color, #7c6bff);
+  border-radius: 0 2px 2px 0;
+}
+.sys-dot {
+  width: 8px; height: 8px; border-radius: 50%; flex-shrink: 0;
+  background: var(--sys-color, #7c6bff);
+}
+
+/* ── Main ── */
+#main {
+  margin-left: 220px;
+  padding-top: 56px;
+  min-height: 100vh;
+}
+
+#content-area {
+  padding: 2rem;
+  max-width: 1100px;
+}
+
+/* ── Home splash ── */
+#home-view .greeting {
+  font-size: 32px; font-weight: 700; letter-spacing: -1px; margin-bottom: 6px;
+}
+#home-view .subgreet {
+  font-size: 15px; color: var(--muted); margin-bottom: 2.5rem;
+}
+
+.systems-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+  gap: 12px;
+  margin-bottom: 2.5rem;
+}
+
+.sys-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  padding: 1.2rem 1rem;
+  cursor: pointer;
+  transition: all 0.2s;
+  position: relative;
+  overflow: hidden;
+}
+.sys-card::before {
+  content: '';
+  position: absolute; top: 0; left: 0; right: 0; height: 3px;
+  background: var(--sys-color, #7c6bff);
+}
+.sys-card:hover {
+  border-color: var(--border2);
+  transform: translateY(-2px);
+  box-shadow: 0 8px 24px rgba(0,0,0,0.3);
+}
+.sys-card-icon { font-size: 26px; margin-bottom: 8px; }
+.sys-card-name { font-size: 13px; font-weight: 600; margin-bottom: 4px; }
+.sys-card-topics { font-size: 11px; color: var(--muted); line-height: 1.5; }
+
+.quick-stats {
+  display: grid; grid-template-columns: repeat(3,1fr); gap: 12px; margin-bottom: 2rem;
+}
+.stat-box {
+  background: var(--surface); border: 1px solid var(--border); border-radius: 12px;
+  padding: 1rem;
+}
+.stat-num { font-size: 28px; font-weight: 700; letter-spacing: -1px; }
+.stat-label { font-size: 12px; color: var(--muted); margin-top: 2px; }
+
+/* ── System view ── */
+#sys-view { display: none; }
+
+.sys-header {
+  display: flex; align-items: flex-start; gap: 1rem;
+  margin-bottom: 1.5rem;
+  padding-bottom: 1.5rem;
+  border-bottom: 1px solid var(--border);
+}
+.sys-header-icon {
+  width: 56px; height: 56px; border-radius: 14px;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 28px; flex-shrink: 0;
+}
+.sys-header-name { font-size: 26px; font-weight: 700; letter-spacing: -0.5px; }
+.sys-header-desc { font-size: 13px; color: var(--muted); margin-top: 4px; line-height: 1.5; }
+
+.topics-grid {
+  display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 12px;
+}
+
+.topic-card {
+  background: var(--surface); border: 1px solid var(--border); border-radius: 12px;
+  padding: 1rem; cursor: pointer; transition: all 0.15s;
+}
+.topic-card:hover { border-color: var(--border2); background: var(--surface2); }
+.topic-card-title {
+  font-size: 14px; font-weight: 600; margin-bottom: 6px;
+  display: flex; align-items: center; gap: 6px;
+}
+.topic-tag {
+  font-size: 10px; font-family: 'JetBrains Mono', monospace;
+  background: rgba(124,107,255,0.15); color: #a89fff;
+  border-radius: 6px; padding: 1px 7px;
+}
+.topic-preview { font-size: 12px; color: var(--muted); line-height: 1.6; }
+
+/* ── Detail view ── */
+#detail-view { display: none; }
+
+.detail-back {
+  display: inline-flex; align-items: center; gap: 6px;
+  font-size: 13px; color: var(--muted); cursor: pointer; margin-bottom: 1.5rem;
+  background: none; border: none; font-family: inherit;
+  transition: color 0.15s;
+}
+.detail-back:hover { color: var(--text); }
+
+.detail-title { font-size: 24px; font-weight: 700; letter-spacing: -0.5px; margin-bottom: 4px; }
+.detail-system { font-size: 12px; margin-bottom: 2rem; }
+.detail-system span {
+  padding: 3px 10px; border-radius: 20px; font-weight: 500;
+}
+
+.detail-body {
+  display: grid; grid-template-columns: 1fr 1fr; gap: 16px;
+}
+
+.detail-section {
+  background: var(--surface); border: 1px solid var(--border);
+  border-radius: 12px; padding: 1.2rem;
+}
+.detail-section.full { grid-column: 1 / -1; }
+
+.detail-section h3 {
+  font-size: 11px; font-weight: 600; color: var(--muted);
+  letter-spacing: 0.8px; text-transform: uppercase;
+  margin-bottom: 10px;
+}
+
+.detail-list { list-style: none; }
+.detail-list li {
+  font-size: 13px; line-height: 1.7; color: var(--text);
+  padding: 3px 0;
+  border-bottom: 1px solid var(--border);
+}
+.detail-list li:last-child { border-bottom: none; }
+
+.pill-list { display: flex; flex-wrap: wrap; gap: 6px; }
+.pill {
+  font-size: 12px; padding: 3px 10px; border-radius: 20px;
+  border: 1px solid var(--border2); color: var(--muted);
+  font-family: 'JetBrains Mono', monospace;
+}
+
+.alert-box {
+  border-radius: 10px; padding: 10px 14px;
+  font-size: 13px; line-height: 1.6; margin-bottom: 8px;
+}
+.alert-red { background: rgba(220,53,69,0.12); border: 1px solid rgba(220,53,69,0.25); color: #ff8a8a; }
+.alert-yellow { background: rgba(255,193,7,0.1); border: 1px solid rgba(255,193,7,0.2); color: #ffd970; }
+.alert-green { background: rgba(25,135,84,0.12); border: 1px solid rgba(25,135,84,0.25); color: #6fcf97; }
+.alert-blue { background: rgba(13,110,253,0.12); border: 1px solid rgba(13,110,253,0.25); color: #7db8ff; }
+
+.dose-table { width: 100%; font-size: 12px; border-collapse: collapse; }
+.dose-table th {
+  text-align: left; font-size: 11px; color: var(--muted);
+  letter-spacing: 0.5px; font-weight: 600;
+  padding: 4px 8px; border-bottom: 1px solid var(--border);
+}
+.dose-table td { padding: 6px 8px; border-bottom: 1px solid rgba(255,255,255,0.04); }
+.dose-table tr:last-child td { border-bottom: none; }
+.mono { font-family: 'JetBrains Mono', monospace; color: #a89fff; }
+
+/* ── Search overlay ── */
+#search-results {
+  position: fixed; top: 56px; left: 220px; right: 0; z-index: 80;
+  background: rgba(10,10,15,0.97);
+  backdrop-filter: blur(16px);
+  display: none;
+  max-height: calc(100vh - 56px); overflow-y: auto;
+  padding: 1.5rem 2rem;
+}
+#search-results.visible { display: block; }
+.sr-label { font-size: 11px; color: var(--muted); letter-spacing: 0.6px; margin-bottom: 10px; }
+.sr-item {
+  display: flex; align-items: center; gap: 12px;
+  padding: 10px; border-radius: 8px; cursor: pointer;
+  transition: background 0.1s;
+}
+.sr-item:hover { background: var(--surface); }
+.sr-dot { width: 8px; height: 8px; border-radius: 50%; flex-shrink: 0; }
+.sr-name { font-size: 14px; font-weight: 500; }
+.sr-sys { font-size: 12px; color: var(--muted); margin-top: 2px; }
+
+/* ── Animations ── */
+@keyframes fadeIn { from { opacity:0; transform: translateY(10px); } to { opacity:1; transform:none; } }
+.fade-in { animation: fadeIn 0.25s ease both; }
+
+/* ── Responsive ── */
+@media (max-width: 768px) {
+  #sidebar { width: 100%; height: auto; position: relative; top: 56px; flex-direction: row; overflow-x: auto; display: flex; padding: 0; border-right: none; border-bottom: 1px solid var(--border); }
+  #main { margin-left: 0; }
+  .sys-btn { white-space: nowrap; padding: 10px 14px; }
+  .sys-btn.active::before { top: auto; bottom: 0; left: 0; right: 0; width: auto; height: 3px; border-radius: 2px 2px 0 0; }
+  .detail-body { grid-template-columns: 1fr; }
+  #search-results { left: 0; }
+}
+</style>
+</head>
+<body>
+
+<header id="app-header">
+  <div>
+    <div class="logo">AMS</div>
+    <div class="logo-sub">MGH HOUSESTAFF · 2024–2025</div>
+  </div>
+  <div class="search-wrap">
+    <span class="search-icon">🔍</span>
+    <input type="text" id="global-search" placeholder="Search any topic, drug, condition…" autocomplete="off">
+  </div>
+  <div class="header-pill">30th Edition</div>
+</header>
+
+<nav id="sidebar"></nav>
+
+<main id="main">
+  <div id="content-area">
+    <div id="home-view"></div>
+    <div id="sys-view"></div>
+    <div id="detail-view"></div>
+  </div>
+</main>
+
+<div id="search-results"></div>
+
+<script>
+const SYSTEMS = [
+  {
+    id: 'cardiology', name: 'Cardiology', icon: '🫀',
+    color: '#ff6b8a',
+    desc: 'ACLS, arrhythmias, heart failure, cath, devices, valvular disease & more',
+    topics: [
+      {
+        id: 'acls-arrest', title: 'ACLS: Cardiac Arrest & TTM', tag: 'EMERGENCY',
+        preview: 'Targeted temperature management, CPR quality, post-arrest care',
+        sections: {
+          keyPoints: [
+            'Compress 2–2.4" deep at 100–120 BPM; minimize interruptions',
+            'Default MGH strategy: avoid fever (T>37.7°C), aggressive cooling',
+            'TTM rationale: prevent neuronal damage from ischemia-reperfusion',
+            'Pan-culture; consider aggressive antibiotics (aspiration risk, gut ischemia)',
+            'H&P algorithm: H\'s and T\'s to identify reversible causes'
+          ],
+          alerts: [
+            { type:'red', text:'If fever develops post-arrest: pan-culture, treat aggressively — infection vs inflammatory response' },
+            { type:'blue', text:'TTM 33–36°C for 24h if comatose post-ROSC (Arch Intern Med 2001)' }
+          ],
+          drugs: [
+            { name:'Epinephrine', dose:'1mg IV/IO q3–5min', note:'ASAP if non-shockable' },
+            { name:'Amiodarone', dose:'300mg IV push, then 150mg', note:'VF/pVT after 3rd shock' },
+            { name:'Lidocaine', dose:'1–1.5 mg/kg', note:'Alternative to amiodarone' },
+          ],
+          ddx: ['VF/pVT → defibrillate', 'PEA/asystole → H\'s & T\'s', 'Hypothermia, Hypoxia, H+ (acidosis)', 'Tension PTX, Tamponade, Toxins', 'Thrombosis (PE, MI)']
+        }
+      },
+      {
+        id: 'bradycardia', title: 'ACLS: Bradycardia', tag: 'ACLS',
+        preview: 'Unstable bradycardia, atropine, pacing protocols',
+        sections: {
+          keyPoints: [
+            'Unstable signs: hypotension, AMS, ischemic chest pain, acute HF/pulm edema',
+            'Atropine 1mg q3–5min (max 3mg); avoid in Mobitz II or CHB',
+            'Dopamine infusion 5–20 mcg/kg/min OR Epinephrine 2–10 mcg/min',
+            'Transcutaneous pacing: set rate 100 BPM, output 100mA → titrate down',
+            'Do NOT give atropine post-heart transplant (denervated heart)',
+          ],
+          alerts: [
+            { type:'red', text:'If unstable → medications + low threshold to pace immediately' },
+            { type:'yellow', text:'Transcutaneous pacing requires procedural sedation: lorazepam 2mg + dilaudid 2mg (emergent) or RICU fentanyl/midazolam' }
+          ],
+          drugs: [
+            { name:'Atropine', dose:'1mg IV q3–5min (max 3mg)', note:'First-line; 2h half-life' },
+            { name:'Dopamine', dose:'5–20 mcg/kg/min IV infusion', note:'Second-line' },
+            { name:'Epinephrine', dose:'2–10 mcg/min IV infusion', note:'Alternative to dopamine' },
+          ],
+          ddx: ['AV block (Mobitz I, II, CHB)', 'Sinus node dysfunction', 'Drug toxicity (BB, CCB, digoxin)', 'Hyperkalemia', 'Hypothyroidism', 'Inferior MI (RCA occlusion)']
+        }
+      },
+      {
+        id: 'tachycardia', title: 'ACLS: Tachycardia', tag: 'ACLS',
+        preview: 'Wide vs narrow complex, regular vs irregular, cardioversion thresholds',
+        sections: {
+          keyPoints: [
+            'Assess: stable vs unstable (hypotension, AMS, ischemia, acute HF)',
+            'Narrow regular: adenosine → IV BB or dilt → amiodarone',
+            'Narrow irregular (AF+RVR, MAT): IV BB or dilt; consider amio; check AC status before rhythm control',
+            'Wide irregular (VT, TdP): lido + 2g Mg; for TdP: 2–4g Mg + overdrive pacing',
+            'If ANY doubt about VT vs SVT with aberrancy → treat as VT'
+          ],
+          alerts: [
+            { type:'red', text:'Unstable → immediate synchronized cardioversion (except pulseless → defibrillate)' },
+            { type:'yellow', text:'Do NOT give adenosine for irregular wide-complex (may precipitate VF in AF+WPW)' }
+          ],
+          drugs: [
+            { name:'Adenosine', dose:'6mg rapid IV push, repeat 12mg x2', note:'Narrow regular only' },
+            { name:'Metoprolol', dose:'2.5–5mg IV over 2min, q5min x3', note:'Rate control' },
+            { name:'Diltiazem', dose:'0.25 mg/kg IV over 2min', note:'Rate control; avoid in HFrEF' },
+            { name:'Amiodarone', dose:'150mg IV over 10min, then 1mg/min x6h', note:'Rhythm/rate' },
+          ],
+          ddx: ['SVT (AVNRT, AVRT)', 'AF/AFL + RVR', 'Atrial tachycardia', 'VT (treat if any doubt)', 'Pre-excitation (WPW)']
+        }
+      },
+      {
+        id: 'afib', title: 'Atrial Fibrillation & Flutter', tag: 'ARRHYTHMIA',
+        preview: 'Rate vs rhythm control, CHA₂DS₂-VASc, cardioversion, anticoagulation',
+        sections: {
+          keyPoints: [
+            'Rate control targets: HR <110 at rest (RACE II); <80 if sx persist (AFFIRM)',
+            'CHA₂DS₂-VASc: CHF, HTN, Age≥75 (x2), DM, Stroke/TIA (x2), Vasc dz, Age 65–74, Sex (F)',
+            'Anticoagulate if CHA₂DS₂-VASc ≥2 (M) or ≥3 (F); DOAC preferred over warfarin',
+            'Consider AF burden when estimating stroke risk (JAMA Card 2018)',
+            'Rhythm control preferred for: younger pts, symptomatic, HF, or first presentation',
+            'Prior to cardioversion: if AF ≥48h or unknown → TEE to r/o LAA thrombus OR anticoagulate x3wks'
+          ],
+          alerts: [
+            { type:'red', text:'Hemodynamically unstable AF → immediate synchronized cardioversion (100–200J biphasic)' },
+            { type:'yellow', text:'HAS-BLED score ≥3: caution with anticoagulation; assess bleeding risk' },
+            { type:'blue', text:'SPARCtool: aids risk/benefit assessment and anticoagulant choice' }
+          ],
+          drugs: [
+            { name:'Metoprolol', dose:'2.5–5mg IV or 25–200mg PO', note:'Rate control; preferred in HFrEF' },
+            { name:'Diltiazem', dose:'0.25 mg/kg IV or 30–360mg PO', note:'Rate control; avoid HFrEF' },
+            { name:'Apixaban', dose:'5mg BID (2.5mg BID if 2/3 criteria*)', note:'Preferred DOAC for AC' },
+            { name:'Amiodarone', dose:'150mg IV then 1mg/min', note:'Rhythm control; chemical cardioversion' },
+          ],
+          ddx: ['New AF vs known/recurrent', 'Thyrotoxicosis', 'PE, pneumonia, sepsis', 'Acute MI', 'EtOH binge ("holiday heart")']
+        }
+      },
+      {
+        id: 'hf', title: 'Inpatient Heart Failure', tag: 'HF',
+        preview: 'Diuresis, hemodynamic profiles, volume assessment, discharge planning',
+        sections: {
+          keyPoints: [
+            'Classify: HFrEF (EF<40%), HFmrEF (40–49%), HFpEF (≥50%)',
+            'Hemodynamic profile: wet/dry × warm/cold; goal: warm & dry',
+            'Diuresis: IV furosemide at ≥ PO dose × 2.5; target UOP 3–5 L/day; check BMP q12h',
+            'Monitor: daily weights, strict I/Os, creatinine, K, Na',
+            'Signs of inadequate decongestion: JVD, orthopnea, peripheral edema, elevated BNP',
+            'Discharge criteria: euvolemic, on oral diuretics, tolerating GDMT, education complete'
+          ],
+          alerts: [
+            { type:'red', text:'Cold/wet profile (CS3): consider inotropes (dobutamine) ± MCS; urgent cath if ischemia' },
+            { type:'yellow', text:'Diuretic resistance: try thiazide add-on (chlorothiazide, metolazone 30min before loop diuretic)' },
+            { type:'green', text:'GDMT for HFrEF: ACEi/ARB/ARNI + BB + MRA + SGLT2i (quadruple therapy target)' }
+          ],
+          drugs: [
+            { name:'Furosemide IV', dose:'1–2.5× PO dose; max ~200mg single dose', note:'Loop diuretic 1st line' },
+            { name:'Bumetanide IV', dose:'1mg = 40mg furosemide', note:'Alternative if furosemide allergy' },
+            { name:'Metolazone', dose:'2.5–10mg PO 30min before loop', note:'Thiazide for resistance' },
+            { name:'Sacubitril/Val', dose:'24/26 mg BID → titrate to 97/103 BID', note:'ARNI for HFrEF EF<35%' },
+          ],
+          ddx: ['Fluid overload vs low CO vs both', 'ACS precipitant', 'Myocarditis', 'Arrhythmia', 'Medication non-adherence', 'Dietary indiscretion']
+        }
+      },
+      {
+        id: 'acs', title: 'Acute Coronary Syndrome', tag: 'EMERGENCY',
+        preview: 'STEMI, NSTEMI, UA management, cath timing, dual antiplatelet',
+        sections: {
+          keyPoints: [
+            'STEMI: PCI within 90min (door-to-balloon); fibrinolytics if PCI unavailable within 120min',
+            'NSTEMI/UA risk stratify: HEART score, TIMI, GRACE for cath timing',
+            'Troponin: rises 3–6h after onset; peak 12–24h; use hs-troponin for early rule-out',
+            'Antiplatelet: aspirin 325mg load → 81mg daily + P2Y12 inhibitor (ticagrelor preferred)',
+            'Anticoagulation: UFH drip or enoxaparin 1mg/kg q12h; hold in STEMI after PCI if no clot burden',
+            'BB, statin, ACEi within 24h of STEMI if tolerated'
+          ],
+          alerts: [
+            { type:'red', text:'STEMI → activate cath lab immediately; dual antiplatelet + anticoagulation NOW' },
+            { type:'yellow', text:'High-risk features for urgent cath: dynamic EKG changes, hemodynamic instability, refractory sx' }
+          ],
+          drugs: [
+            { name:'Aspirin', dose:'325mg PO load → 81mg daily', note:'Irreversible COX inhibition' },
+            { name:'Ticagrelor', dose:'180mg load → 90mg BID', note:'Preferred P2Y12 (PLATO trial)' },
+            { name:'Clopidogrel', dose:'300–600mg load → 75mg daily', note:'Use if ticagrelor contraindicated' },
+            { name:'UFH', dose:'60 U/kg bolus (max 4000U) → 12 U/kg/hr', note:'Target PTT 50–70s' },
+          ],
+          ddx: ['Type 1 MI (plaque rupture)', 'Type 2 MI (supply-demand mismatch)', 'MINOCA', 'Myocarditis', 'Takotsubo', 'PE (troponin rise)']
+        }
+      },
+      {
+        id: 'syncope', title: 'Syncope', tag: 'WORKUP',
+        preview: 'Reflex vs cardiac vs orthostatic, ROSE/CANADIAN risk, workup',
+        sections: {
+          keyPoints: [
+            'Definition: transient, self-limited LOC due to global cerebral hypoperfusion',
+            'Vasovagal (reflex): most common; prodrome, triggers (prolonged standing, pain)',
+            'Orthostatic: BP drop ≥20/10 within 3min of standing; check volume status',
+            'Cardiac: highest risk; often abrupt onset without prodrome; EKG + telemetry mandatory',
+            'High risk features: exertional, structural heart disease, abnormal EKG, age >60, family hx SCD'
+          ],
+          alerts: [
+            { type:'red', text:'EKG findings requiring admission: new QTc prolongation, Brugada, complete heart block, WPW' },
+            { type:'yellow', text:'ROSE criteria: elevated BNP >300, hemoccult positive, hemoglobin <9 → high risk, admit' }
+          ],
+          drugs: [],
+          ddx: ['Vasovagal reflex', 'Orthostatic hypotension', 'Arrhythmia (bradyarrhythmia, VT, SVT)', 'Structural (AS, HCM, PE)', 'Non-syncopal LOC (seizure, hypoglycemia, psychogenic)']
+        }
+      },
+    ]
+  },
+  {
+    id: 'pulmonary', name: 'Pulmonary & Critical Care', icon: '🫁',
+    color: '#6bbfff',
+    desc: 'Respiratory failure, mechanical ventilation, ARDS, shock, sepsis, toxicology',
+    topics: [
+      {
+        id: 'hypoxemia', title: 'Hypoxemia & Hypercapnia', tag: 'RESPIRATORY',
+        preview: 'Types of respiratory failure, P:F ratio, A-a gradient, algorithm',
+        sections: {
+          keyPoints: [
+            'Type 1 (hypoxemic): PaO2 <60mmHg — V/Q mismatch, shunt, diffusion impairment, low FiO2',
+            'Type 2 (hypercapnic): PaCO2 >45mmHg — hypoventilation (neuromuscular, obesity, CNS)',
+            'P:F ratio quick surrogate for A-a gradient; P:F <300 → consider ARDS',
+            'A-a gradient = PAO2 - PaO2; normal = (age/4) + 4; elevated = VQ mismatch, diffusion, shunt',
+            'Pulse oximetry may be inaccurate in dark skin tones → ABG preferred (JAMA 2022)',
+            'Target SpO2 91–96% (PILOT trial); lower 88–92% if hypercapnic risk'
+          ],
+          alerts: [
+            { type:'red', text:'SpO2 unreliable in dark skin tones — get ABG if clinical concern despite "normal" SpO2' },
+            { type:'yellow', text:'P:F <200 + bilateral infiltrates + no cardiogenic pulmonary edema = ARDS (Berlin Definition)' }
+          ],
+          drugs: [],
+          ddx: ['Pneumonia', 'PE', 'ARDS', 'Cardiogenic pulmonary edema', 'COPD exacerbation', 'Pneumothorax', 'Hypoventilation (CNS depression, NM disease, obesity)']
+        }
+      },
+      {
+        id: 'sepsis', title: 'Sepsis', tag: 'CRITICAL',
+        preview: 'Surviving Sepsis Bundle, vasopressors, antibiotics, source control',
+        sections: {
+          keyPoints: [
+            'Sepsis 3: life-threatening organ dysfunction caused by dysregulated host response to infection',
+            'Septic shock: sepsis + vasopressors to maintain MAP≥65 + lactate >2 despite adequate resuscitation',
+            'Hour 1 bundle: blood cultures x2 → broad-spectrum abx → IV fluids (30mL/kg LR if hypoperfused) → vasopressors if refractory → measure lactate',
+            'Norepinephrine first-line vasopressor; add vasopressin 0.03U/min if MAP still <65 on NE alone',
+            'De-escalate antibiotics at 48–72h based on culture data + clinical response',
+            'Source control within 6–12h: remove infected devices, drain abscesses'
+          ],
+          alerts: [
+            { type:'red', text:'Cultures BEFORE antibiotics (don\'t delay >45min); broad-spectrum empiric antibiotics ASAP' },
+            { type:'yellow', text:'Reassess fluid responsiveness — excessive IVF worsens outcomes (CLASSIC trial)' },
+            { type:'green', text:'Low-dose steroids (hydrocortisone 200mg/day) if septic shock refractory to fluids + vasopressors' }
+          ],
+          drugs: [
+            { name:'Norepinephrine', dose:'0.01–3 mcg/kg/min', note:'First-line vasopressor' },
+            { name:'Vasopressin', dose:'0.03 U/min fixed', note:'Add-on to reduce NE requirement' },
+            { name:'Hydrocortisone', dose:'200mg/day continuous or 50mg q6h', note:'Refractory septic shock' },
+            { name:'Fludrocortisone', dose:'50mcg daily', note:'With hydrocortisone in septic shock' },
+          ],
+          ddx: ['Bacterial (GNR, GPC)', 'Viral (influenza, COVID)', 'Fungal (candida, aspergillus)', 'Non-infectious mimics: PE, adrenal crisis, TTP, aspiration']
+        }
+      },
+      {
+        id: 'ards', title: 'ARDS', tag: 'CRITICAL',
+        preview: 'Berlin definition, lung-protective ventilation, prone positioning, ECMO',
+        sections: {
+          keyPoints: [
+            'Berlin Criteria: acute onset ≤7d, bilateral infiltrates, P:F <300, not fully explained by cardiac failure/fluid overload',
+            'Mild: 200<P:F≤300; Moderate: 100<P:F≤200; Severe: P:F≤100',
+            'Lung-protective vent: TV 6mL/kg IBW, plateau pressure ≤30 cmH2O, PEEP per ARDSnet table',
+            'Permissive hypercapnia acceptable (pH ≥7.20); minimize O2 toxicity (FiO2 ≤0.6 if able)',
+            'Proning: ≥16h/day in moderate-severe ARDS (PROSEVA trial: 28% mortality reduction)',
+            'NMB (cisatracurium) for 48h in moderate-severe ARDS (ACURASYS trial debated; ROSE trial: no benefit)'
+          ],
+          alerts: [
+            { type:'red', text:'Plateau pressure >30 cmH2O → reduce TV by 1mL/kg increments (min 4mL/kg IBW)' },
+            { type:'blue', text:'ECMO criteria: P:F <80 despite optimization, pH <7.25 with high PEEP, or uncompensated barotrauma' }
+          ],
+          drugs: [
+            { name:'Cisatracurium', dose:'0.1mg/kg bolus → 0.06–0.6 mcg/kg/min', note:'NMB if dyssynchrony' },
+            { name:'Methylprednisolone', dose:'1mg/kg/day in fibroproliferative phase', note:'Controversial; may help if late ARDS' },
+          ],
+          ddx: ['Bacterial/viral pneumonia', 'Aspiration', 'Sepsis', 'Trauma (fat emboli, pulmonary contusion)', 'Transfusion-related (TRALI)', 'Drug-induced (amiodarone, chemo)']
+        }
+      },
+      {
+        id: 'shock', title: 'Shock', tag: 'CRITICAL',
+        preview: 'Distributive, cardiogenic, hypovolemic, obstructive — recognition & management',
+        sections: {
+          keyPoints: [
+            'Shock: inadequate tissue perfusion; MAP <65, lactate >2 (or >4), end-organ dysfunction',
+            'Distributive (septic, anaphylactic, neurogenic): low SVR → warm extremities, wide pulse pressure',
+            'Cardiogenic: low CO → cool extremities, elevated JVP, S3, pulmonary edema',
+            'Hypovolemic: hemorrhagic or non-hemorrhagic; volume responsive',
+            'Obstructive: PE, tension PTX, cardiac tamponade; treat mechanical cause first',
+            'Mixed shock common in critically ill — reassess hemodynamics frequently'
+          ],
+          alerts: [
+            { type:'red', text:'Tension PTX → needle decompression 2nd ICS MCL immediately, then chest tube' },
+            { type:'red', text:'Anaphylaxis → IM epinephrine 0.3–0.5mg (1:1000) immediately; repeat q5–15min' }
+          ],
+          drugs: [
+            { name:'Epinephrine', dose:'0.01–1 mcg/kg/min', note:'Anaphylaxis, cardiogenic shock add-on' },
+            { name:'Norepinephrine', dose:'0.01–3 mcg/kg/min', note:'First-line distributive/septic shock' },
+            { name:'Dobutamine', dose:'2.5–20 mcg/kg/min', note:'Cardiogenic shock inotrope' },
+            { name:'Phenylephrine', dose:'0.5–9 mcg/kg/min', note:'Neurogenic shock (pure alpha)' },
+          ],
+          ddx: ['Septic (distributive)', 'Cardiogenic', 'Hypovolemic/hemorrhagic', 'Obstructive (PE, tamponade, tension PTX)', 'Anaphylactic', 'Neurogenic', 'Adrenal crisis']
+        }
+      },
+    ]
+  },
+  {
+    id: 'gastroenterology', name: 'Gastroenterology', icon: '🏥',
+    color: '#ffa94d',
+    desc: 'GI bleeding, liver disease, IBD, pancreatitis, nutrition, transplant',
+    topics: [
+      {
+        id: 'ugib', title: 'Upper GI Bleeding', tag: 'EMERGENCY',
+        preview: 'Glasgow-Blatchford score, PPI dosing, endoscopy timing, resuscitation',
+        sections: {
+          keyPoints: [
+            'UGI bleeding: proximal to ligament of Treitz; presentation: hematemesis, coffee-ground emesis, melena',
+            'Resuscitation: 2 large-bore IVs, type & screen, NPO; pRBC if Hgb <7 (or <8 if CAD/high risk)',
+            'Glasgow-Blatchford score: pre-endoscopy risk; 0 = safe for outpatient management',
+            'PPI: IV pantoprazole 80mg bolus → 8mg/hr if high-risk stigmata on endoscopy',
+            'Endoscopy within 24h for most UGIB; within 12h if hemodynamically unstable',
+            'Octreotide drip if variceal bleeding suspected (50mcg bolus → 50mcg/hr)'
+          ],
+          alerts: [
+            { type:'red', text:'Hemodynamically unstable → resuscitate, EGD within 12h; consider IR embolization if endoscopy fails' },
+            { type:'yellow', text:'Variceal bleeding: prophylactic antibiotics (ceftriaxone 1g/day x7d), octreotide, early TIPS if refractory' }
+          ],
+          drugs: [
+            { name:'Pantoprazole', dose:'80mg IV bolus → 8mg/hr continuous', note:'After endoscopic hemostasis of high-risk lesions' },
+            { name:'Octreotide', dose:'50mcg IV bolus → 50mcg/hr', note:'Suspected variceal or portal hypertensive bleed' },
+            { name:'Ceftriaxone', dose:'1g IV daily x7d', note:'Prophylaxis in variceal bleeding with cirrhosis' },
+          ],
+          ddx: ['PUD (H. pylori, NSAIDs)', 'Esophageal/gastric varices', 'Mallory-Weiss tear', 'Esophagitis', 'Dieulafoy lesion', 'AVM', 'Gastric cancer']
+        }
+      },
+      {
+        id: 'lgib', title: 'Lower GI Bleeding', tag: 'GI',
+        preview: 'Oakland score, colonoscopy timing, angiography, diverticular vs vascular',
+        sections: {
+          keyPoints: [
+            'LGIB: distal to ligament of Treitz; hematochezia (bright red or maroon blood)',
+            'BUN/Cr <20 with normal renal function suggests LGI source',
+            'Oakland score <8: may predict safe discharge (JAMA 2020)',
+            'ABC score predicts 30-day mortality (Gut 2021)',
+            'Colonoscopy: diagnostic test of choice for hemodynamically stable LGIB',
+            'CT angiography if active brisk bleeding (more sensitive than colonoscopy for active bleeding)'
+          ],
+          alerts: [
+            { type:'red', text:'Brisk hematochezia with hemodynamic instability may actually be from UGIB — consider EGD first' }
+          ],
+          drugs: [],
+          ddx: ['Diverticulosis (most common)', 'Angioectasia/AVM', 'Ischemic colitis', 'IBD', 'Infectious colitis', 'Hemorrhoidal bleeding', 'Colorectal cancer']
+        }
+      },
+      {
+        id: 'cirrhosis', title: 'End-Stage Liver Disease', tag: 'HEPATOLOGY',
+        preview: 'MELD score, ascites management, HE, SBP, hepatorenal syndrome',
+        sections: {
+          keyPoints: [
+            'MELD-Na score predicts 90-day mortality and liver transplant priority',
+            'Ascites: sodium restriction (<2g/day) + spironolactone 100mg (titrate to 400mg) ± furosemide',
+            'Diagnostic paracentesis: PMN >250 cells/mm³ = SBP; treat with cefotaxime 2g q8h x5d',
+            'SBP prophylaxis: norfloxacin 400mg daily or TMP-SMX (if prior SBP, protein <1.5 + renal/liver dysfunction)',
+            'HRS type 1: rapidly progressive; albumin + midodrine + octreotide as bridge to TIPS/transplant',
+            'Hepatic encephalopathy: lactulose to 2–4 soft BMs/day; rifaximin 550mg BID for prophylaxis'
+          ],
+          alerts: [
+            { type:'red', text:'SBP: immediate cefotaxime; albumin 1.5g/kg on day 1, 1g/kg on day 3 — prevents HRS' },
+            { type:'yellow', text:'Avoid NSAIDs, nephrotoxic agents; use acetaminophen <2g/day; minimize sedatives' }
+          ],
+          drugs: [
+            { name:'Spironolactone', dose:'100–400mg PO daily', note:'Ascites; monitor K' },
+            { name:'Furosemide', dose:'40–160mg PO daily', note:'Adjunct; keep Na ratio 100:40 with spiro' },
+            { name:'Lactulose', dose:'30–60mL BID-QID, titrate', note:'HE: goal 2–4 soft BMs/day' },
+            { name:'Rifaximin', dose:'550mg BID', note:'Secondary HE prophylaxis' },
+            { name:'Cefotaxime', dose:'2g IV q8h x5d', note:'SBP treatment' },
+            { name:'Albumin', dose:'1.5g/kg day 1, 1g/kg day 3', note:'With cefotaxime for SBP (prevents HRS)' },
+          ],
+          ddx: ['Alcoholic liver disease', 'MASLD/NASH', 'Viral hepatitis', 'Autoimmune hepatitis', 'Wilson\'s', 'Hemochromatosis', 'Drug-induced']
+        }
+      },
+      {
+        id: 'pancreatitis', title: 'Pancreatitis', tag: 'ABDOMEN',
+        preview: 'Atlanta criteria, fluid resuscitation, feeding, complications, necrotizing',
+        sections: {
+          keyPoints: [
+            'Diagnosis: 2 of 3 criteria — epigastric pain, lipase/amylase >3× ULN, characteristic CT findings',
+            'Most common causes: gallstones (40%), EtOH (30%), hypertriglyceridemia, drugs, idiopathic',
+            'Fluid resuscitation: LR preferred over NS; 250–500mL/hr early (WATERFALL trial: balanced fluids reduce SIRS)',
+            'Ranson criteria, BISAP score, APACHE II for severity assessment',
+            'Necrotizing pancreatitis: CT with contrast; infected necrosis → antibiotics (carbapenems) ± drainage',
+            'Early enteral nutrition (nasojejunal) if not tolerating PO; NPO only if unable to tolerate EN'
+          ],
+          alerts: [
+            { type:'red', text:'Infected necrotizing pancreatitis: CT-guided drainage or surgical debridement; carbapenems (meropenem)' },
+            { type:'yellow', text:'Serum TG >1000 mg/dL pancreatitis: insulin drip + NPO to rapidly lower TG; plasmapheresis if needed' }
+          ],
+          drugs: [
+            { name:'LR (Lactated Ringer)', dose:'250–500 mL/hr (moderate) → adjust', note:'Preferred over NS (WATERFALL)' },
+            { name:'Morphine/Hydromorphone', dose:'PO or IV PRN', note:'Pain management' },
+            { name:'Meropenem', dose:'1g IV q8h', note:'Infected necrotizing pancreatitis' },
+          ],
+          ddx: ['Gallstone pancreatitis', 'Alcoholic', 'Hypertriglyceridemia', 'ERCP-induced', 'Drug-induced (thiazides, valproate, azathioprine)', 'Autoimmune (IgG4)', 'Idiopathic']
+        }
+      },
+    ]
+  },
+  {
+    id: 'nephrology', name: 'Nephrology', icon: '🫘',
+    color: '#9be36b',
+    desc: 'AKI, CKD, dialysis, electrolytes, acid-base, urinalysis, nephrolithiasis',
+    topics: [
+      {
+        id: 'aki', title: 'Acute Kidney Injury', tag: 'RENAL',
+        preview: 'KDIGO staging, pre/intra/post-renal, management, RRT indications',
+        sections: {
+          keyPoints: [
+            'KDIGO staging: Stage 1: Cr ×1.5–1.9 or ↑0.3mg/dL; Stage 2: ×2–2.9; Stage 3: ×3 or Cr >4 or RRT',
+            '"A Euvolemic Kidney is a Happy Kidney; Fluids are NOT always the answer"',
+            'Pre-renal: FENa <1% (FEUrea <35% if on diuretics); Uosm >500; responds to fluids',
+            'Intrinsic: ATN (FENa >2%), glomerulonephritis, AIN, vascular',
+            'Post-renal: urinary obstruction → bladder US, renal US; relieve urgently',
+            'Stop nephrotoxins: NSAIDs, ACEi/ARBs, aminoglycosides; avoid contrast if possible'
+          ],
+          alerts: [
+            { type:'red', text:'Emergent indications for RRT: Severe hyperkalemia, refractory metabolic acidosis, pulmonary edema, uremia (pericarditis, encephalopathy, bleeding)' },
+            { type:'yellow', text:'If large volume resuscitation needed: LR > NS (SMART/SALT-ED trials — less AKI, less MAKE30)' }
+          ],
+          drugs: [],
+          ddx: ['Pre-renal (hypovolemia, heart failure, hepatorenal)', 'Intrinsic-ATN (ischemia, nephrotoxins)', 'AIN (drugs, infections)', 'Glomerulonephritis', 'Post-renal (BPH, malignancy, stones, stricture)']
+        }
+      },
+      {
+        id: 'acid-base', title: 'Acid-Base Disorders', tag: 'ELECTROLYTES',
+        preview: 'Systematic approach, compensation formulas, anion gap, osmol gap',
+        sections: {
+          keyPoints: [
+            'Step 1: pH (acidemic <7.35, alkalemic >7.45)',
+            'Step 2: Primary process — pCO2 (respiratory) or HCO3 (metabolic)',
+            'Step 3: Compensation — respiratory for metabolic (Winter\'s formula); metabolic for respiratory',
+            'Step 4: Anion gap = Na – (Cl + HCO3); corrected AG = AG + 0.25 × (4 – albumin)',
+            'Step 5: Delta-delta ratio for mixed disorders: (AG – 12)/(24 – HCO3); <1 = concurrent NAGMA, >2 = concurrent met alkalosis',
+            'Osmol gap = measured Osm – calculated Osm; >10 suggests toxic alcohol, mannitol, ethanol'
+          ],
+          alerts: [
+            { type:'blue', text:'Winters formula: expected pCO2 = 1.5 × HCO3 + 8 ± 2 (for metabolic acidosis compensation)' },
+            { type:'yellow', text:'MUDPILES: Methanol, Uremia, DKA, Propylene glycol, Isoniazid, Lactic acidosis, Ethylene glycol, Salicylates' }
+          ],
+          drugs: [
+            { name:'Sodium Bicarb IV', dose:'Isotonic: 150mEq in D5W 1L; for pH <7.1', note:'Monitor K, iCa, pH q1h' },
+          ],
+          ddx: ['NAGMA: hyperchloremic from diarrhea, RTA, saline', 'HAGMA: MUDPILES', 'Metabolic alkalosis: vomiting, diuretics, hyperaldosteronism', 'Respiratory: CNS, NM disease, asthma, COPD']
+        }
+      },
+      {
+        id: 'hyperkalemia', title: 'Potassium Disorders', tag: 'ELECTROLYTES',
+        preview: 'Hyperkalemia treatment algorithm, EKG changes, hypokalemia repletion',
+        sections: {
+          keyPoints: [
+            'Hyperkalemia EKG changes: peaked T waves → PR prolongation → wide QRS → sine wave → VF',
+            'Treatment priority: 1) Membrane stabilization; 2) Shift K into cells; 3) Remove K from body',
+            'Calcium gluconate 1g IV (or calcium chloride 1g) — stabilizes cardiac membrane; no effect on K level',
+            'Insulin + dextrose: 10U regular insulin IV + 25g dextrose → K falls ~0.5–1mEq/L in 30min',
+            'Sodium bicarb effective only if concurrent metabolic acidosis',
+            'Kayexalate (SPS) onset 6–24h; patiromer (slower acting); dialysis for severe/refractory'
+          ],
+          alerts: [
+            { type:'red', text:'EKG changes (wide QRS, sine wave) → calcium IMMEDIATELY + emergency dialysis preparation' },
+            { type:'yellow', text:'Pseudohyperkalemia: hemolysis, plt>500K, WBC>120 — confirm with non-hemolyzed sample' }
+          ],
+          drugs: [
+            { name:'Calcium Gluconate', dose:'1g IV over 10min; repeat if EKG changes persist', note:'Membrane stabilization only' },
+            { name:'Insulin + D50', dose:'10U regular insulin IV + 25g (50mL D50)', note:'Shifts K; monitor glucose' },
+            { name:'Albuterol neb', dose:'10–20mg nebulized', note:'Adjunct; shifts K ~0.5 mEq/L' },
+            { name:'Furosemide', dose:'40–80mg IV', note:'Removes K if adequate renal function' },
+            { name:'Patiromer', dose:'8.4g PO daily', note:'Long-term; slower onset than emergent measures' },
+          ],
+          ddx: []
+        }
+      },
+    ]
+  },
+  {
+    id: 'id', name: 'Infectious Disease', icon: '🦠',
+    color: '#ff6bff',
+    desc: 'Empiric antibiotics, MDR organisms, pneumonia, UTI, sepsis, HIV, fungal infections',
+    topics: [
+      {
+        id: 'cap', title: 'Community Acquired Pneumonia', tag: 'RESPIRATORY',
+        preview: 'CURB-65, PSI, antibiotic selection, severity assessment, atypical coverage',
+        sections: {
+          keyPoints: [
+            'CURB-65: Confusion, Urea >7, RR ≥30, BP <90/60, Age ≥65; score 0–1: outpatient; ≥3: ICU consideration',
+            'Outpatient (no risk factors): amoxicillin 1g TID or doxycycline 100mg BID',
+            'Inpatient non-severe: beta-lactam (ceftriaxone 1g q24h or ampicillin-sulbactam) + macrolide OR respiratory fluoroquinolone monotherapy',
+            'Severe CAP (ICU): beta-lactam + azithromycin; if Legionella suspected: fluoroquinolone',
+            'MRSA risk factors: prior MRSA, necrotizing pneumonia, cavitary lesion → add vancomycin or linezolid',
+            'Duration: 5 days (non-severe); 7–10 days if bacteremic, Legionella, severe'
+          ],
+          alerts: [
+            { type:'yellow', text:'Urine Legionella antigen if: Legionnaire\'s exposure, severe CAP, SIADH, or no response to initial therapy' },
+            { type:'blue', text:'Strep pneumoniae urine antigen: high Sp; positive → de-escalate to penicillin (if susceptible)' }
+          ],
+          drugs: [
+            { name:'Ceftriaxone', dose:'1g IV q24h', note:'Beta-lactam backbone for inpatient CAP' },
+            { name:'Azithromycin', dose:'500mg IV/PO daily', note:'Atypical coverage; combo with ceftriaxone' },
+            { name:'Levofloxacin', dose:'750mg IV/PO daily', note:'Respiratory FQ monotherapy alternative' },
+            { name:'Vancomycin', dose:'25 mg/kg actual body weight IV q8–12h (AUC target)', note:'Add if MRSA risk' },
+          ],
+          ddx: ['Typical (S. pneumoniae, H. influenzae, Moraxella)', 'Atypical (Mycoplasma, Legionella, Chlamydia)', 'Viral (influenza, SARS-CoV-2, RSV)', 'Aspiration', 'MRSA (cavitary)', 'PCP (HIV)']
+        }
+      },
+      {
+        id: 'endocarditis', title: 'Bloodstream Infections & Endocarditis', tag: 'INFECTIOUS',
+        preview: 'Duke criteria, echocardiography, antibiotic duration, source identification',
+        sections: {
+          keyPoints: [
+            'MRSA bacteremia: vancomycin (AUC:MIC guided) or daptomycin 6–10 mg/kg daily; NEVER use daptomycin for pulmonary IE',
+            'S. aureus bacteremia: TTE + TEE (higher sensitivity); all bacteremias need 2-week minimum treatment',
+            'Modified Duke Criteria: 2 major, 1 major + 3 minor, or 5 minor = definite IE',
+            'Repeat blood cultures 48–72h after starting antibiotics; persistent bacteremia = poor prognosis',
+            'MSSA endocarditis: nafcillin/oxacillin 2g IV q4h (superior to vancomycin for MSSA)',
+            'Viridans strep IE (penicillin sensitive): penicillin G + gentamicin x2 weeks or penicillin G x4 weeks'
+          ],
+          alerts: [
+            { type:'red', text:'S. aureus bacteremia + back pain/neuro sx → MRI spine to rule out epidural abscess / vertebral osteomyelitis' },
+            { type:'red', text:'Do NOT use daptomycin for pulmonary endocarditis (inactivated by lung surfactant)' }
+          ],
+          drugs: [
+            { name:'Vancomycin', dose:'AUC-guided; target AUC/MIC 400–600', note:'MRSA; use pharmacy dosing service' },
+            { name:'Daptomycin', dose:'6–10 mg/kg IV daily', note:'MRSA native valve IE (not lung)' },
+            { name:'Nafcillin', dose:'2g IV q4h', note:'MSSA — superior to vancomycin' },
+            { name:'Ceftriaxone', dose:'2g IV q24h', note:'Viridans strep; HACEK organisms' },
+          ],
+          ddx: ['S. aureus (MSSA/MRSA)', 'Viridans streptococci', 'Enterococcus', 'HACEK organisms', 'Coagulase-negative Staph (prosthetic valve)', 'Candida (IVDU, TPN)']
+        }
+      },
+      {
+        id: 'hiv', title: 'HIV/AIDS & Opportunistic Infections', tag: 'INFECTIOUS',
+        preview: 'ART, CD4-stratified OI prophylaxis, PCP, MAC, cryptococcus, CMV',
+        sections: {
+          keyPoints: [
+            'AIDS-defining: CD4 <200 cells/mm³ OR AIDS-defining illness',
+            'CD4 <200: PCP risk → TMP-SMX DS daily prophylaxis',
+            'CD4 <100: Toxoplasma (if IgG+) → TMP-SMX covers both PCP and Toxo',
+            'CD4 <50: MAC prophylaxis (azithromycin 1200mg weekly) + ophthalmology for CMV retinitis',
+            'ART in OI: start within 2 weeks for most OIs; delay 4–6 weeks for TB meningitis and cryptococcal meningitis (IRIS risk)',
+            'PCP treatment: TMP-SMX 15–20mg/kg/day TMP IV/PO x21d; steroids if PaO2 <70 or A-a gradient >35'
+          ],
+          alerts: [
+            { type:'red', text:'Cryptococcal meningitis: liposomal amphotericin B + flucytosine x2wks → fluconazole; controlled LP for ICP management' },
+            { type:'yellow', text:'IRIS: paradoxical worsening after ART initiation — steroids for severe CNS IRIS' }
+          ],
+          drugs: [
+            { name:'TMP-SMX DS', dose:'1 DS tab daily (prophylaxis); 15-20mg/kg/day TMP (treatment)', note:'PCP prophylaxis/treatment' },
+            { name:'L-AmB', dose:'3–5 mg/kg IV daily', note:'Cryptococcal meningitis, severe PCP failures' },
+            { name:'Azithromycin', dose:'1200mg weekly', note:'MAC prophylaxis if CD4 <50' },
+            { name:'Isoniazid', dose:'300mg daily x9mo + pyridoxine 50mg', note:'LTBI treatment in HIV' },
+          ],
+          ddx: ['PCP (CD4 <200)', 'Cryptococcal meningitis (CD4 <100)', 'Toxoplasmosis (CD4 <100)', 'CMV retinitis/colitis (CD4 <50)', 'MAC (CD4 <50)', 'TB']
+        }
+      },
+    ]
+  },
+  {
+    id: 'hematology', name: 'Hematology & Oncology', icon: '🩸',
+    color: '#ff4d4d',
+    desc: 'Anemia, coagulation, anticoagulation, transfusion, leukemia, lymphoma, emergencies',
+    topics: [
+      {
+        id: 'anemia', title: 'Pancytopenia & Anemia', tag: 'HEME',
+        preview: 'Iron deficiency, B12/folate, hemolysis, aplastic anemia workup',
+        sections: {
+          keyPoints: [
+            'Anemia workup: MCV (micro/normo/macrocytic), reticulocyte count (hypo vs hyperproliferative)',
+            'Iron deficiency: ferritin <30 (iron deficient), <100 (functional deficiency if inflammation);  transferrin sat <20%',
+            'Hemolytic anemia: elevated LDH, low haptoglobin, elevated indirect bili, elevated retic count',
+            'Coombs+ hemolysis: warm AIHA (IgG) — steroids; cold (IgM) — warm the patient, rituximab',
+            'B12 deficiency: macrocytic anemia + neurological sx (subacute combined degeneration); check MMA, homocysteine',
+            'Aplastic anemia: pancytopenia + hypocellular bone marrow → hematology ASAP (allogenic SCT if eligible)'
+          ],
+          alerts: [
+            { type:'yellow', text:'Fe Deficiency in men or post-menopausal women → MUST rule out GI malignancy' },
+            { type:'blue', text:'PO iron: 325mg FeSO4 every OTHER day (better absorption: Lancet Haematol 2017); VitC enhances, antacids/Ca impair absorption' }
+          ],
+          drugs: [
+            { name:'Iron Sucrose IV', dose:'200mg in 100mL NS over 15min', note:'IV iron if PO intolerant or malabsorption' },
+            { name:'Ferric Carboxymaltose IV', dose:'750mg over 15min (max 1500mg total)', note:'Fewer infusions required' },
+            { name:'Cyanocobalamin', dose:'1000mcg IM daily x7d → monthly', note:'B12 deficiency; PO poorly absorbed if IF deficiency' },
+          ],
+          ddx: ['Microcytic: IDA, ACD, thalassemia, sideroblastic', 'Normocytic: ACD, renal failure, early IDA, aplastic, hemolysis', 'Macrocytic: B12/folate, hypothyroid, liver disease, medications (MTX, hydroxyurea)']
+        }
+      },
+      {
+        id: 'anticoag', title: 'Anticoagulation Management', tag: 'HEME',
+        preview: 'DOAC selection, reversal agents, bridging, VTE duration, bleeding complications',
+        sections: {
+          keyPoints: [
+            'DOACs preferred over warfarin for AF and VTE (except mechanical heart valves, mod-severe MS, APLAS)',
+            'Active cancer VTE: apixaban or LMWH preferred (CARAVAGGIO); avoid edoxaban/rivaroxaban if GI/GU luminal lesions',
+            'Obesity (BMI ≥45 or wt ≥150kg): avoid DOAC, use warfarin (Circulation 2024)',
+            'Warfarin reversal: 4F-PCC (most rapid) ± FFP + vitamin K; INR check 15–30min after',
+            'Dabigatran reversal: idarucizumab (Praxbind) 5g IV for life-threatening bleeding or urgent surgery',
+            'Factor Xa inhibitor reversal: andexanet alfa (FDA-approved) or 4F-PCC (off-label)'
+          ],
+          alerts: [
+            { type:'red', text:'Life-threatening DOAC bleeding: stop anticoagulant, supportive care, call hematology + pharmacy immediately' },
+            { type:'yellow', text:'Bridging therapy largely NOT recommended for AF patients with mechanical valves or APLAS' }
+          ],
+          drugs: [
+            { name:'Apixaban', dose:'10mg BID x7d → 5mg BID', note:'VTE tx; 2.5mg BID if 2/3: age≥80, wt≤60, Cr≥1.5 (AF)' },
+            { name:'Rivaroxaban', dose:'15mg BID x21d → 20mg daily', note:'VTE tx; take with meal' },
+            { name:'Idarucizumab', dose:'5g IV (2×2.5g)', note:'Dabigatran reversal only' },
+            { name:'Andexanet Alfa', dose:'High or low dose based on apixaban/rivaroxaban dose/timing', note:'Factor Xa reversal' },
+            { name:'4F-PCC', dose:'25–50 U/kg IV', note:'Warfarin reversal or DOAC off-label' },
+          ],
+          ddx: []
+        }
+      },
+      {
+        id: 'febrile-neutropenia', title: 'Febrile Neutropenia', tag: 'ONCOLOGY',
+        preview: 'MASCC score, empiric antibiotics, antifungals, duration of treatment',
+        sections: {
+          keyPoints: [
+            'Definition: T ≥100.4°F (≥1hr or oral >100.9°F) + ANC <500 or expected to fall <500 in 48h',
+            'MASCC risk score ≤21 = high risk → hospitalize for IV antibiotics',
+            'Empiric: cefepime 2g IV q8h (or pip-tazo or carbapenem if high-risk factors: mucositis, recent abx, prior resistant organisms)',
+            'Add vancomycin if: clinical suspicion for catheter infection, gram-positive bacteremia, hemodynamic instability, skin/soft tissue infection',
+            'Continue antibiotics until ANC >500 AND afebrile ≥48h',
+            'Consider antifungal coverage (micafungin or caspofungin) if fever persists >4–7 days on antibiotics'
+          ],
+          alerts: [
+            { type:'red', text:'NEVER delay antibiotics in febrile neutropenia — within 60 minutes of triage' },
+            { type:'yellow', text:'G-CSF (filgrastim) may shorten neutropenia duration but is not standard therapy for established febrile neutropenia' }
+          ],
+          drugs: [
+            { name:'Cefepime', dose:'2g IV q8h', note:'First-line empiric monotherapy' },
+            { name:'Vancomycin', dose:'AUC-guided or 25mg/kg q12h', note:'Add for gram-positive concern' },
+            { name:'Meropenem', dose:'1g IV q8h', note:'If resistant GNR, mucositis, prior infections' },
+            { name:'Micafungin', dose:'100mg IV daily', note:'Empiric antifungal after 4–7d persistent fever' },
+          ],
+          ddx: []
+        }
+      },
+    ]
+  },
+  {
+    id: 'neurology', name: 'Neurology', icon: '🧠',
+    color: '#c87aff',
+    desc: 'Altered mental status, stroke, seizures, CNS emergencies, weakness, dementia',
+    topics: [
+      {
+        id: 'stroke', title: 'Stroke & TIA', tag: 'EMERGENCY',
+        preview: 'tPA criteria, thrombectomy window, NIHSS, secondary prevention, carotid stenosis',
+        sections: {
+          keyPoints: [
+            'Activate stroke code → NIHSS → non-con CT immediately (r/o bleed before tPA)',
+            'IV tPA (alteplase): within 4.5h of last known well; absolute CI: previous hemorrhagic stroke, active bleeding, recent major surgery <14d',
+            'Mechanical thrombectomy (LVO): within 24h of last known well if large vessel occlusion on CTA',
+            'BP management: for tPA candidates, keep BP <185/110 before and <180/105 after tPA',
+            'TIA: ABCD2 score; admit if ≥4 or rapid imaging not available; dual antiplatelet 21d then single agent',
+            'Secondary prevention: antiplatelet (aspirin ± clopidogrel), statin (high-intensity), BP control, AF screening'
+          ],
+          alerts: [
+            { type:'red', text:'Last known well TIME is critical — document precisely; imaging must not delay tPA if eligible' },
+            { type:'red', text:'DO NOT give tPA if SBP >185 or DBP >110 — bring BP down first' }
+          ],
+          drugs: [
+            { name:'Alteplase (tPA)', dose:'0.9 mg/kg IV (max 90mg); 10% bolus, 90% over 1h', note:'Within 4.5h; no antiplatelet x24h after' },
+            { name:'Aspirin', dose:'325mg PO within 24h (if no tPA) or 24h post-tPA', note:'Start within 48h per AHA/ASA' },
+            { name:'Atorvastatin', dose:'80mg PO daily (high-intensity)', note:'Start immediately; secondary prevention' },
+          ],
+          ddx: ['Ischemic stroke (AIS)', 'TIA', 'ICH', 'Subarachnoid hemorrhage', 'Todd\'s paralysis (post-ictal)', 'Complex migraine', 'Hypoglycemia (always check!)']
+        }
+      },
+      {
+        id: 'seizures', title: 'Seizures & Status Epilepticus', tag: 'NEURO',
+        preview: 'Status epilepticus treatment algorithm, first-line benzos, AED selection, EEG',
+        sections: {
+          keyPoints: [
+            'Status epilepticus: continuous seizure >5min or ≥2 seizures without return to baseline',
+            'Phase 1 (0–5min): ABCs, IV access, glucose check, O2',
+            'Phase 2 (5–20min): lorazepam 0.1 mg/kg IV (max 4mg/dose; repeat once) OR diazepam 0.15mg/kg IV',
+            'Phase 3 (20–40min): fosphenytoin 20 PE/kg IV or levetiracetam 60mg/kg (max 4.5g) or valproate 40mg/kg',
+            'Refractory SE (>40min): intubation + midazolam drip 0.2 mg/kg/hr or propofol or pentobarbital',
+            'EEG monitoring for refractory SE; continuous EEG if non-convulsive SE suspected'
+          ],
+          alerts: [
+            { type:'red', text:'Seize for >30min = severe brain injury risk — aggressive early treatment mandatory' },
+            { type:'yellow', text:'Non-convulsive SE: subtle eye deviation, lip smacking, decreased LOC — require EEG for diagnosis' }
+          ],
+          drugs: [
+            { name:'Lorazepam', dose:'0.1 mg/kg IV (max 4mg); may repeat x1', note:'First-line; onset 2–3min' },
+            { name:'Diazepam', dose:'0.2mg/kg PR (rectal) if no IV access', note:'First-line if no IV' },
+            { name:'Fosphenytoin', dose:'20 PE/kg IV at max 150 PE/min', note:'Second-line; monitor BP/EKG' },
+            { name:'Levetiracetam', dose:'60 mg/kg IV (max 4500mg) over 10min', note:'Second-line; well tolerated' },
+            { name:'Midazolam', dose:'0.2 mg/kg/hr infusion (titrate)', note:'Refractory SE; requires intubation' },
+          ],
+          ddx: ['First unprovoked seizure', 'Acute symptomatic (metabolic: hypoglycemia, hyponatremia; structural)', 'Epilepsy exacerbation', 'Non-epileptic seizures (PNES)', 'Syncope with jerking']
+        }
+      },
+    ]
+  },
+  {
+    id: 'psychiatry', name: 'Psychiatry', icon: '🧩',
+    color: '#4dd9ff',
+    desc: 'Delirium, agitation, capacity, psychosis, withdrawal, substance use disorders',
+    topics: [
+      {
+        id: 'delirium', title: 'Delirium', tag: 'PSYCH',
+        preview: 'CAM criteria, predisposing vs precipitating factors, non-pharm management, antipsychotics',
+        sections: {
+          keyPoints: [
+            'CAM: Acute onset + fluctuating course + Inattention + (Disorganized thinking OR altered LOC)',
+            'Non-pharmacologic 1st line: reorientation, optimize sleep, ambulation, minimize lines/catheters, family at bedside',
+            'Hyperactive delirium: treat underlying cause; judicious haldol or quetiapine if safety concern',
+            'ICU delirium: ABCDEF bundle — Awakening trials, Breathing trials, Coordination, Delirium monitoring, Early mobility, Family engagement',
+            'Avoid benzos (worsens delirium) except for EtOH/benzo withdrawal delirium',
+            'Melatonin may help with sleep-wake cycle; avoid diphenhydramine and anticholinergics'
+          ],
+          alerts: [
+            { type:'red', text:'Delirium in elderly → increased mortality, LOS, functional decline. Prevent aggressively.' },
+            { type:'yellow', text:'Haloperidol does NOT shorten delirium duration but reduces severity of agitation (MIND-USA trial)' }
+          ],
+          drugs: [
+            { name:'Haloperidol', dose:'0.5–2mg IV/IM PRN; max 5mg/24h in elderly', note:'Agitation in delirium; monitor QTc' },
+            { name:'Quetiapine', dose:'12.5–25mg PO BID-QID PRN', note:'Alternative; more sedating' },
+            { name:'Melatonin', dose:'3–5mg PO QHS', note:'Non-pharmacologic adjunct for sleep' },
+          ],
+          ddx: ['Sepsis/infection', 'Medication (anticholinergics, benzos, opioids, steroids)', 'Metabolic (hypo/hypernatremia, uremia, hypoglycemia)', 'CNS (stroke, seizure, ICH)', 'Withdrawal (EtOH, benzos)', 'Pain/urinary retention/constipation']
+        }
+      },
+      {
+        id: 'etoh-withdrawal', title: 'Alcohol Use Disorder & Withdrawal', tag: 'SUBSTANCE',
+        preview: 'CIWA scale, benzodiazepine dosing, phenobarbital, Wernicke prophylaxis',
+        sections: {
+          keyPoints: [
+            'Alcohol withdrawal: onset 6–24h; peaks 24–72h; seizures peak at 24h; DTs 48–96h (rare but life-threatening)',
+            'CIWA-Ar: symptom-triggered protocol; treat if score ≥8–10',
+            'Symptom-triggered vs fixed-dose: symptom-triggered preferred (less total benzo)',
+            'Thiamine 100mg IV BEFORE glucose (prevent Wernicke encephalopathy — cannot reverse established Korsakoff)',
+            'Wernicke triad: encephalopathy + oculomotor dysfunction + ataxia (not all present in most cases)',
+            'Severe withdrawal/DTs: phenobarbital 130–260mg IV, adjunct or alternative to benzos; requires ICU'
+          ],
+          alerts: [
+            { type:'red', text:'Give IV thiamine BEFORE any glucose in at-risk patients — Wernicke encephalopathy is reversible, Korsakoff psychosis is not' },
+            { type:'red', text:'DTs: ICU admission, aggressive benzos or phenobarbital, airway protection, cardiovascular monitoring' }
+          ],
+          drugs: [
+            { name:'Lorazepam', dose:'1–2mg IV/IM q1h PRN (CIWA-driven)', note:'Preferred in liver disease (no active metabolites)' },
+            { name:'Diazepam', dose:'5–10mg IV q5–10min PRN', note:'Long-acting; good for seizure prevention' },
+            { name:'Phenobarbital', dose:'130–260mg IV q15–30min', note:'Severe withdrawal or benzo failure; ICU' },
+            { name:'Thiamine', dose:'500mg IV TID x3d (Wernicke tx); 100mg IV daily (prophylaxis)', note:'Give IV, not IM' },
+          ],
+          ddx: []
+        }
+      },
+    ]
+  },
+  {
+    id: 'endocrinology', name: 'Endocrinology', icon: '⚗️',
+    color: '#ffe066',
+    desc: 'Diabetes, DKA/HHS, adrenal insufficiency, thyroid disorders, calcium, pituitary',
+    topics: [
+      {
+        id: 'dka', title: 'DKA / HHS', tag: 'EMERGENCY',
+        preview: 'Diagnosis criteria, fluid resuscitation, insulin protocol, electrolyte management',
+        sections: {
+          keyPoints: [
+            'DKA: glucose >250, pH <7.3, HCO3 <15, ketonemia/ketonuria; anion gap metabolic acidosis',
+            'HHS: glucose >600, osmolarity >320, minimal ketosis, no significant acidosis',
+            'IV fluids: 1L NS bolus → 250–500mL/hr based on hemodynamics; switch to D5 half-NS when glucose <250 (DKA) or <300 (HHS)',
+            'Insulin: start AFTER K+ ≥3.5; 0.1 U/kg/hr regular insulin drip (no bolus needed per many protocols)',
+            'Potassium: replace aggressively — K falls with insulin/glucose tx; maintain K 3.5–5.5',
+            'Resolution DKA: anion gap closed, pH >7.3, HCO3 >18, eating PO; overlap SubQ insulin 2h before stopping drip'
+          ],
+          alerts: [
+            { type:'red', text:'Do NOT start insulin if K+ <3.3 — will cause life-threatening hypokalemia; replace K first' },
+            { type:'yellow', text:'Serum glucose falls faster than ketones — add dextrose to IVF when glucose <250 while ketones are still elevated' }
+          ],
+          drugs: [
+            { name:'Regular Insulin', dose:'0.1 U/kg/hr IV infusion (no bolus)', note:'After K >3.5; DKA protocol' },
+            { name:'Normal Saline', dose:'1L bolus → 250–500 mL/hr', note:'Hydration; switch D5-1/2NS when glucose <250' },
+            { name:'KCl replacement', dose:'20–40 mEq/hr IV if K 3.0–3.5; hold if K <3.0 → replace faster', note:'Continuous monitoring' },
+          ],
+          ddx: ['Type 1 DM (most common DKA)', 'Type 2 DM (DKA possible; HHS more common)', 'Infection precipitant (30–40%)', 'Medication non-adherence', 'New DM presentation (20–25%)', 'Starvation/alcoholic ketoacidosis']
+        }
+      },
+      {
+        id: 'adrenal', title: 'Adrenal Insufficiency', tag: 'ENDOCRINE',
+        preview: 'Primary vs secondary, adrenal crisis, cortisol stimulation test, steroid dosing',
+        sections: {
+          keyPoints: [
+            'Primary AI (Addison\'s): all adrenal hormones low + high ACTH; autoimmune 80–90% in developed world',
+            'Secondary AI: low ACTH → low glucocorticoids only (aldosterone preserved); most common = exogenous steroid withdrawal',
+            'Adrenal crisis: hypotension, nausea/vomiting, abdominal pain, fever, hyponatremia, hyperkalemia (primary AI)',
+            'Cosyntropin stimulation test: 250mcg IV → cortisol at 0, 30, 60 min; normal peak >18–20 mcg/dL',
+            'Empiric stress dosing: hydrocortisone 100mg IV bolus → 50mg q6–8h for major stress/surgery',
+            'Chronic replacement: hydrocortisone 15–20mg/day (AM higher dose) ± fludrocortisone (primary AI only)'
+          ],
+          alerts: [
+            { type:'red', text:'Suspected adrenal crisis: hydrocortisone 100mg IV IMMEDIATELY (don\'t wait for labs in hemodynamically unstable patient)' },
+            { type:'yellow', text:'Sick day rules: double/triple steroid dose with illness; go to ER if vomiting and cannot take PO' }
+          ],
+          drugs: [
+            { name:'Hydrocortisone', dose:'100mg IV bolus, then 50mg IV q6-8h (crisis)', note:'Stress dosing; covers both glucocorticoid and mineralocorticoid needs at high doses' },
+            { name:'Fludrocortisone', dose:'0.05–0.2mg PO daily', note:'Primary AI only; mineralocorticoid replacement' },
+            { name:'Dexamethasone', dose:'4mg IV if no cosyntropin stim done yet', note:'Doesn\'t interfere with cortisol assay' },
+          ],
+          ddx: ['Primary (Addison\'s): autoimmune, TB, bilateral adrenal hemorrhage, malignancy, drugs (fluconazole)', 'Secondary: pituitary/hypothalamic disease, abrupt steroid cessation, Sheehan\'s', 'Critical illness-related corticosteroid insufficiency (CIRCI)']
+        }
+      },
+    ]
+  },
+  {
+    id: 'rheumatology', name: 'Rheumatology', icon: '🦴',
+    color: '#ff9f43',
+    desc: 'Arthritis, connective tissue diseases, vasculitis, autoantibodies, medications',
+    topics: [
+      {
+        id: 'gout', title: 'Arthritis', tag: 'RHEUM',
+        preview: 'Gout, pseudogout, septic arthritis, RA, OA — approach and treatment',
+        sections: {
+          keyPoints: [
+            'Gout: negatively birefringent needle-shaped crystals; WBC 10k–100k/μL; gold standard = arthrocentesis',
+            'Pseudogout (CPPD): positively birefringent rhomboid crystals; chondrocalcinosis on X-ray',
+            'Septic arthritis: must rule out — fever, WBC >50k/μL, positive Gram stain/culture; risk factors: immunosuppression, prosthetic joint, IVDU',
+            'Acute gout treatment: NSAIDs (if renal/CV ok) OR colchicine 1.2mg then 0.6mg 1h later (within 36h of flare)',
+            'RA: morning stiffness >1h, symmetric small joints, anti-CCP (specific), RF; treat-to-target with MTX ± biologics',
+            'Septic arthritis: IV antibiotics + daily joint aspiration or arthroscopic irrigation'
+          ],
+          alerts: [
+            { type:'red', text:'Prosthetic joint infection: urgent orthopedics consult; never miss septic arthritis — permanent joint destruction' },
+            { type:'yellow', text:'Do NOT start allopurinol or febuxostat during acute gout flare (can prolong/worsen flare)' }
+          ],
+          drugs: [
+            { name:'Colchicine', dose:'1.2mg PO then 0.6mg 1h later; 0.6mg daily prophylaxis', note:'Acute gout within 36h; reduce dose in renal insufficiency' },
+            { name:'Indomethacin', dose:'50mg TID with food x3–5d', note:'NSAID for acute gout' },
+            { name:'Prednisone', dose:'40–60mg daily x3–5d then taper', note:'If NSAIDs/colchicine contraindicated' },
+            { name:'Allopurinol', dose:'100mg daily → titrate up monthly; target uric acid <6mg/dL', note:'ULT; start after acute flare resolves' },
+          ],
+          ddx: ['Gout', 'Pseudogout (CPPD)', 'Septic arthritis', 'Reactive arthritis', 'Psoriatic arthritis', 'Lyme arthritis', 'RA flare', 'OA']
+        }
+      },
+    ]
+  },
+  {
+    id: 'geriatrics', name: 'Geriatrics & Palliative Care', icon: '💊',
+    color: '#74c0fc',
+    desc: 'Pain management, advance care planning, code status, hospice, frailty, delirium prevention',
+    topics: [
+      {
+        id: 'pain', title: 'Pain Management', tag: 'PALLIATIVE',
+        preview: 'Opioid dosing, equianalgesic table, adjuvants, special populations, conversions',
+        sections: {
+          keyPoints: [
+            'WHO analgesic ladder: Non-opioid → weak opioid → strong opioid (step-up approach)',
+            'Oral morphine equivalent (OME) conversions: oxycodone × 1.5 = OME; hydromorphone × 5 = OME',
+            'Fentanyl patch: Saf in liver AND renal disease; if febrile → remove patch (faster absorption)',
+            'Methadone: complex — cannot convert linearly from other opioids; titrate q4–5 days; monitor QTc',
+            'Renal/hepatic dosing: hydromorphone or fentanyl safer in renal disease (avoid morphine/codeine); avoid meperidine',
+            'Equianalgesic: IV morphine 10mg = PO morphine 30mg = PO oxycodone 20mg = IV hydromorphone 1.5mg'
+          ],
+          alerts: [
+            { type:'red', text:'Opioid overdose: naloxone 0.4–2mg IV/IM/intranasal; repeat q2–3min; start infusion if recurring' },
+            { type:'yellow', text:'Methadone: bimodal half-life (up to 150h); high risk of delayed respiratory depression; never use as PRN' }
+          ],
+          drugs: [
+            { name:'Morphine', dose:'2.5–5mg IV q4h PRN (opioid naive)', note:'Avoid in renal failure (active metabolite accumulates)' },
+            { name:'Hydromorphone IV', dose:'0.2–0.6mg q4h PRN (IV)', note:'5× more potent than morphine; safer in renal disease' },
+            { name:'Oxycodone PO', dose:'5–10mg q4–6h PRN (opioid naive)', note:'1.5× potency of oral morphine' },
+            { name:'Gabapentin', dose:'100–300mg TID (start low in elderly/renal)', note:'Neuropathic pain adjuvant' },
+          ],
+          ddx: []
+        }
+      },
+      {
+        id: 'goals-of-care', title: 'Adv Care Planning & Code Status', tag: 'PALLIATIVE',
+        preview: 'POLST, HCP, DNR/DNI, code discussion framework, serious illness conversation',
+        sections: {
+          keyPoints: [
+            'Code status ≠ advance care planning — code status is one medical decision within the larger ACP conversation',
+            'Survival to hospital discharge: out-of-hospital cardiac arrest ~10%; in-hospital cardiac arrest ~15–20%',
+            'Serious illness conversation (Serious Illness Guide): ask what patient understands → what matters most → fears → family/proxy',
+            'POLST: portable medical order for patients with serious illness or frailty (different from advance directive)',
+            'Perioperative: many teams require temporary reversal of DNR/DNI for surgery (discuss with patient, set end date)',
+            'Comfort-focused care: continue all comfort medications; consult palliative care and chaplaincy; discontinue unnecessary treatments'
+          ],
+          alerts: [
+            { type:'blue', text:'Serious Illness Conversations: REMAP framework — Reframe, Expect emotion, Map out what matters, Align with values, Plan medical treatment' }
+          ],
+          drugs: [],
+          ddx: []
+        }
+      },
+    ]
+  },
+];
+
+let currentSystem = null;
+let currentTopic = null;
+
+function getSystemColor(sysId) {
+  const sys = SYSTEMS.find(s => s.id === sysId);
+  return sys ? sys.color : '#7c6bff';
+}
+
+function renderSidebar() {
+  const sidebar = document.getElementById('sidebar');
+  sidebar.innerHTML = SYSTEMS.map(sys => `
+    <button class="sys-btn" style="--sys-color:${sys.color}" onclick="showSystem('${sys.id}')">
+      <span class="sys-dot" style="background:${sys.color}"></span>
+      ${sys.name}
+    </button>
+  `).join('');
+}
+
+function showHome() {
+  currentSystem = null;
+  currentTopic = null;
+  document.getElementById('home-view').style.display = 'block';
+  document.getElementById('sys-view').style.display = 'none';
+  document.getElementById('detail-view').style.display = 'none';
+  document.querySelectorAll('.sys-btn').forEach(b => b.classList.remove('active'));
+  document.getElementById('home-view').innerHTML = `
+    <div class="fade-in">
+      <div class="greeting">Hey, resident 👋</div>
+      <div class="subgreet">MGH Housestaff Quick Reference · 2024–2025 · ${SYSTEMS.length} Systems · ${SYSTEMS.reduce((a,s) => a + s.topics.length, 0)} Topics</div>
+      <div class="quick-stats">
+        <div class="stat-box"><div class="stat-num" style="color:#ff6b8a">${SYSTEMS.reduce((a,s) => a + s.topics.length, 0)}</div><div class="stat-label">Topics covered</div></div>
+        <div class="stat-box"><div class="stat-num" style="color:#6bbfff">${SYSTEMS.length}</div><div class="stat-label">Organ systems</div></div>
+        <div class="stat-box"><div class="stat-num" style="color:#9be36b">30th</div><div class="stat-label">Edition — 2024–25</div></div>
+      </div>
+      <div class="systems-grid">
+        ${SYSTEMS.map(sys => `
+          <div class="sys-card" style="--sys-color:${sys.color}" onclick="showSystem('${sys.id}')">
+            <div class="sys-card-icon">${sys.icon}</div>
+            <div class="sys-card-name">${sys.name}</div>
+            <div class="sys-card-topics">${sys.topics.length} topics · ${sys.topics.slice(0,2).map(t=>t.title).join(', ')}${sys.topics.length > 2 ? '…' : ''}</div>
+          </div>
+        `).join('')}
+      </div>
+      <div style="font-size:12px; color:var(--muted); margin-top:1rem; line-height:1.6;">
+        📚 MGH Department of Medicine · Editors: Elizabeth Gay MD & Noemie Levy MD<br>
+        ⚠️ Not a substitute for clinical judgment — consult supervisors and primary literature.
+      </div>
+    </div>
+  `;
+}
+
+function showSystem(sysId) {
+  currentSystem = sysId;
+  currentTopic = null;
+  const sys = SYSTEMS.find(s => s.id === sysId);
+  document.getElementById('home-view').style.display = 'none';
+  document.getElementById('sys-view').style.display = 'block';
+  document.getElementById('detail-view').style.display = 'none';
+  document.querySelectorAll('.sys-btn').forEach(b => b.classList.remove('active'));
+  var activeBtn = document.querySelector('.sys-btn[onclick="showSystem(\'' + sysId + '\')"]'); if(activeBtn) activeBtn.classList.add('active');
+
+  document.getElementById('sys-view').innerHTML = `
+    <div class="fade-in">
+      <div class="sys-header">
+        <div class="sys-header-icon" style="background:${sys.color}22">${sys.icon}</div>
+        <div>
+          <div class="sys-header-name">${sys.name}</div>
+          <div class="sys-header-desc">${sys.desc}</div>
+        </div>
+      </div>
+      <div class="topics-grid">
+        ${sys.topics.map(t => `
+          <div class="topic-card" onclick="showTopic('${sysId}','${t.id}')">
+            <div class="topic-card-title">
+              ${t.title}
+              <span class="topic-tag">${t.tag}</span>
+            </div>
+            <div class="topic-preview">${t.preview}</div>
+          </div>
+        `).join('')}
+      </div>
+    </div>
+  `;
+}
+
+function showTopic(sysId, topicId) {
+  const sys = SYSTEMS.find(s => s.id === sysId);
+  const topic = sys.topics.find(t => t.id === topicId);
+  currentSystem = sysId;
+  currentTopic = topicId;
+
+  document.getElementById('home-view').style.display = 'none';
+  document.getElementById('sys-view').style.display = 'none';
+  document.getElementById('detail-view').style.display = 'block';
+
+  const s = topic.sections;
+  const alertsHtml = s.alerts && s.alerts.length ? s.alerts.map(function(a) { return '<div class="alert-box alert-' + a.type + '">' + a.text + '</div>'; }).join('') : '';
+  const drugsHtml = s.drugs && s.drugs.length ? '<table class="dose-table"><thead><tr><th>Drug</th><th>Dose</th><th>Notes</th></tr></thead><tbody>' + s.drugs.map(function(d) { return '<tr><td class="mono">' + d.name + '</td><td>' + d.dose + '</td><td style="color:var(--muted);font-size:11px">' + d.note + '</td></tr>'; }).join('') + '</tbody></table>' : '<span style="color:var(--muted);font-size:13px">See system guidelines</span>';
+  const ddxHtml = s.ddx && s.ddx.length ? '<div class="pill-list">' + s.ddx.map(function(d) { return '<span class="pill">' + d + '</span>'; }).join('') + '</div>' : '';
+
+  document.getElementById('detail-view').innerHTML = `
+    <div class="fade-in">
+      <button class="detail-back" onclick="showSystem('${sysId}')">← Back to ${sys.name}</button>
+      <div class="detail-title">${topic.title}</div>
+      <div class="detail-system"><span style="background:${sys.color}22;color:${sys.color};padding:3px 10px;border-radius:20px">${sys.icon} ${sys.name}</span></div>
+      <div class="detail-body">
+        <div class="detail-section full">
+          <h3>Key Points</h3>
+          <ul class="detail-list">${s.keyPoints.map(function(p){return '<li>'+p+'</li>';}).join('')}</ul>
+        </div>
+        ${alertsHtml ? '<div class="detail-section full"><h3>Alerts &amp; Pearls</h3>' + alertsHtml + '</div>' : ''}
+        <div class="detail-section">
+          <h3>Medications &amp; Dosing</h3>
+          ${drugsHtml}
+        </div>
+        ${ddxHtml ? '<div class="detail-section"><h3>Differential Diagnosis</h3>' + ddxHtml + '</div>' : ''}
+      </div>
+    </div>
+  `;
+}
+
+// Search
+const searchIndex = [];
+SYSTEMS.forEach(sys => {
+  sys.topics.forEach(t => {
+    searchIndex.push({ sys, topic: t });
+  });
+});
+
+const searchInput = document.getElementById('global-search');
+const searchResults = document.getElementById('search-results');
+
+searchInput.addEventListener('input', function() {
+  const q = this.value.trim().toLowerCase();
+  if (!q) { searchResults.classList.remove('visible'); return; }
+  const matches = searchIndex.filter(({sys, topic}) =>
+    topic.title.toLowerCase().includes(q) ||
+    topic.preview.toLowerCase().includes(q) ||
+    topic.tag.toLowerCase().includes(q) ||
+    sys.name.toLowerCase().includes(q) ||
+    (topic.sections.ddx || []).some(d => d.toLowerCase().includes(q)) ||
+    (topic.sections.keyPoints || []).some(k => k.toLowerCase().includes(q)) ||
+    (topic.sections.drugs || []).some(d => d.name.toLowerCase().includes(q))
+  );
+  if (matches.length === 0) {
+    searchResults.innerHTML = `<div class="sr-label">No results for "${this.value}"</div>`;
+  } else {
+    searchResults.innerHTML = `
+      <div class="sr-label">${matches.length} RESULT${matches.length !== 1 ? 'S' : ''}</div>
+      ${matches.map(({sys, topic}) => `
+        <div class="sr-item" onclick="selectResult('${sys.id}','${topic.id}')">
+          <span class="sr-dot" style="background:${sys.color}"></span>
+          <div>
+            <div class="sr-name">${highlight(topic.title, q)}</div>
+            <div class="sr-sys">${sys.name} · ${topic.tag}</div>
+          </div>
+        </div>
+      `).join('')}
+    `;
+  }
+  searchResults.classList.add('visible');
+});
+
+function highlight(text, q) {
+  const idx = text.toLowerCase().indexOf(q);
+  if (idx === -1) return text;
+  return text.slice(0, idx) + '<span style="color:#7c6bff;font-weight:600">' + text.slice(idx, idx + q.length) + '</span>' + text.slice(idx + q.length);
+}
+
+function selectResult(sysId, topicId) {
+  searchResults.classList.remove('visible');
+  searchInput.value = '';
+  showTopic(sysId, topicId);
+}
+
+document.addEventListener('click', function(e) {
+  if (!searchInput.contains(e.target) && !searchResults.contains(e.target)) {
+    searchResults.classList.remove('visible');
+  }
+});
+
+searchInput.addEventListener('keydown', function(e) {
+  if (e.key === 'Escape') { searchResults.classList.remove('visible'); this.value = ''; }
+});
+
+// Logo click → home
+document.querySelector('.logo').addEventListener('click', showHome);
+
+// Init
+renderSidebar();
+showHome();
+</script>
+</body>
+</html>
